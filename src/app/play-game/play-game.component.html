@@ -1,0 +1,64 @@
+<div *ngIf="isGameSet">Game ID: {{playTable.playTableId}}</div>
+<div class="center" *ngIf="isGameSet">
+    <div>
+        <div [ngStyle]="{'grid-template-columns': 'repeat(' + edgeSize + ', 10px)'}">
+            <div class="inside" *ngFor="let singleField of playTable.singleFields; let i = index" (click)="onClick(i)">
+                <div
+                    [ngClass]="{'circle': singleField.status === singleFieldStatus.circle, 'cross': singleField.status === singleFieldStatus.cross}">
+
+                    <div *ngFor="let winningField of winningRow; let j = index">
+                        <div [ngClass]="{'end-game': winningField.position === singleField.position}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button mat-flat-button color="accent" class="again" *ngIf="isEnded && isGameSet" (click)="playAgain()">Play
+            again</button>
+    </div>
+</div>
+<mat-tab-group *ngIf="!isGameSet">
+    <mat-tab label="New game">
+        <div class="example-container">
+            <form [formGroup]="options">
+                <div class="example-form-fields">
+                    <mat-form-field [hideRequiredMarker]="hideRequiredControl.value"
+                        [floatLabel]="getFloatLabelValue()">
+                        <input matInput placeholder="Board edge size" required
+                            [(ngModel)]="playTableForCreation.edgeSize" [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+                    <mat-form-field [hideRequiredMarker]="hideRequiredControl.value"
+                        [floatLabel]="getFloatLabelValue()">
+                        <input matInput placeholder="Winning row size" required
+                            [(ngModel)]="playTableForCreation.winningRowSize" [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+                    <mat-form-field [hideRequiredMarker]="hideRequiredControl.value"
+                        [floatLabel]="getFloatLabelValue()">
+                        <mat-select required [(ngModel)]="playTableForCreation.cpuSide"
+                            [ngModelOptions]="{standalone: true}">
+                            <mat-option>-- None --</mat-option>
+                            <mat-option value="cross">Circle</mat-option>
+                            <mat-option value="circle">Cross</mat-option>
+                        </mat-select>
+                        <mat-label><em>Playing side</em></mat-label>
+                    </mat-form-field>
+                </div>
+                <button mat-flat-button color="accent" (click)="startNewGame()">Start new game</button>
+            </form>
+        </div>
+    </mat-tab>
+    <mat-tab label="Load game">
+        <div class="example-container">
+            <form [formGroup]="options">
+                <div class="example-form-fields">
+                    <mat-form-field [hideRequiredMarker]="hideRequiredControl.value"
+                        [floatLabel]="getFloatLabelValue()">
+                        <input matInput placeholder="Game ID" required [(ngModel)]="playTableIdForLoad"
+                            [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+                </div>
+                <button mat-flat-button color="accent" (click)="loadGame()">Load game</button>
+            </form>
+        </div>
+    </mat-tab>
+</mat-tab-group>

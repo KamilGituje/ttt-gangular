@@ -1,0 +1,64 @@
+div {
+    display: grid;
+    column-gap: 45px;
+    row-gap: 0px;
+    justify-self: center;
+}
+
+div.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.inside {
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    border-color: black;
+    border-style: solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.circle {
+    width: 40px;
+    height: 40px;
+    border-color: black;
+    border-style: solid;
+    border-radius: 50%;
+}
+
+div.cross {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 43%, black 45%, black 55%, rgba(0, 0, 0, 0) 57%, rgba(0, 0, 0, 0) 100%),
+        linear-gradient(135deg, white 0%, white 43%, black 45%, black 55%, white 57%, white 100%);
+}
+
+
+div.example-container {
+    width: 300px;
+}
+
+div.end-game {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: red;
+}
+
+mat-tab-group {
+    position: absolute;
+    margin: auto;
+    display: block;
+    bottom: 0px;
+    top: 300px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+button.again {
+    width: 100px;
+}
