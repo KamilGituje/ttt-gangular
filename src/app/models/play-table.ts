@@ -1,7 +1,7 @@
 import { PlaySide } from "./play-side";
 import { SingleField } from "./single-field";
 
-export class PlayTable {
+export interface PlayTable {
     playTableId: number;
     cpuSide: PlaySide;
     winningRowSize: number;

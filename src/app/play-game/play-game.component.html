@@ -5,7 +5,6 @@
             <div class="inside" *ngFor="let singleField of playTable.singleFields; let i = index" (click)="onClick(i)">
                 <div
                     [ngClass]="{'circle': singleField.status === singleFieldStatus.circle, 'cross': singleField.status === singleFieldStatus.cross}">
-
                     <div *ngFor="let winningField of winningRow; let j = index">
                         <div [ngClass]="{'end-game': winningField.position === singleField.position}">
                         </div>
@@ -13,8 +12,9 @@
                 </div>
             </div>
         </div>
-        <button mat-flat-button color="accent" class="again" *ngIf="isEnded && isGameSet" (click)="playAgain()">Play
-            again</button>
+        <button mat-flat-button color="accent" class="again" *ngIf="isEnded && isGameSet" (click)="playAgain()">
+            Play again
+        </button>
     </div>
 </div>
 <mat-tab-group *ngIf="!isGameSet">
@@ -24,18 +24,17 @@
                 <div class="example-form-fields">
                     <mat-form-field [hideRequiredMarker]="hideRequiredControl.value"
                         [floatLabel]="getFloatLabelValue()">
-                        <input matInput placeholder="Board edge size" required
-                            [(ngModel)]="playTableForCreation.edgeSize" [ngModelOptions]="{standalone: true}">
-                    </mat-form-field>
-                    <mat-form-field [hideRequiredMarker]="hideRequiredControl.value"
-                        [floatLabel]="getFloatLabelValue()">
-                        <input matInput placeholder="Winning row size" required
-                            [(ngModel)]="playTableForCreation.winningRowSize" [ngModelOptions]="{standalone: true}">
-                    </mat-form-field>
-                    <mat-form-field [hideRequiredMarker]="hideRequiredControl.value"
-                        [floatLabel]="getFloatLabelValue()">
-                        <mat-select required [(ngModel)]="playTableForCreation.cpuSide"
+                        <input matInput placeholder="Board edge size" required [(ngModel)]="edgeSize"
                             [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+                    <mat-form-field [hideRequiredMarker]="hideRequiredControl.value"
+                        [floatLabel]="getFloatLabelValue()">
+                        <input matInput placeholder="Winning row size" required [(ngModel)]="winningRowSize"
+                            [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+                    <mat-form-field [hideRequiredMarker]="hideRequiredControl.value"
+                        [floatLabel]="getFloatLabelValue()">
+                        <mat-select required [(ngModel)]="cpuSide" [ngModelOptions]="{standalone: true}">
                             <mat-option>-- None --</mat-option>
                             <mat-option value="cross">Circle</mat-option>
                             <mat-option value="circle">Cross</mat-option>

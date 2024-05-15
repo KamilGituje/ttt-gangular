@@ -19,15 +19,15 @@ export class PlayGameComponent {
 
   constructor(private playTableService: PlayTableService, private formBuilder: FormBuilder, private snackBar: MatSnackBar) { }
 
-  playTable = new PlayTable();
-  edgeSize: number;
+  playTable!: PlayTable;
+  edgeSize = 3;
+  cpuSide = PlaySide.circle;
+  winningRowSize = 3
   singleFieldStatus = SingleFieldStatus;
-  playTableForCreation = new PlayTableForCreation();
   isGameSet = false;
-  isEnded: boolean;
-  winningRow: SingleField[];
-  playTableIdForLoad: number;
-
+  isEnded = false;
+  winningRow: SingleField[] = [];
+  playTableIdForLoad?: number;
 
   hideRequiredControl = new FormControl(true);
   floatLabelControl = new FormControl('auto' as FloatLabelType);
@@ -44,7 +44,7 @@ export class PlayGameComponent {
   }
 
   onClick(position: number) {
-    let singleMove: SingleMove = {
+    const singleMove: SingleMove = {
       playTableId: this.playTable.playTableId,
       singleFieldPosition: position,
       singleFieldStatus: SingleFieldStatus.blank
@@ -71,11 +71,20 @@ export class PlayGameComponent {
   };
 
   startNewGame() {
-    this.playTableService.createTable(this.playTableForCreation).subscribe(r => { this.playTable = r, this.edgeSize = Math.sqrt(r.singleFields.length), this.isGameSet = true });
+    const playTableForCreation: PlayTableForCreation = {
+      edgeSize: this.edgeSize,
+      cpuSide: this.cpuSide,
+      winningRowSize: this.winningRowSize
+    };
+    this.playTableService.createTable(playTableForCreation).subscribe(r => {
+      this.playTable = r;
+      this.edgeSize = Math.sqrt(r.singleFields.length);
+      this.isGameSet = true;
+    });
   }
 
   loadGame() {
-    this.playTableService.getPlayTable(this.playTableIdForLoad).subscribe({
+    this.playTableService.getPlayTable(this.playTableIdForLoad!).subscribe({
       next: r => { this.playTable = r, this.edgeSize = Math.sqrt(r.singleFields.length), this.isGameSet = true },
       error: err => this.openSnackBar("Game not found")
     })

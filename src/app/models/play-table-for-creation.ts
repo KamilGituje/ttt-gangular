@@ -1,6 +1,6 @@
 import { PlaySide } from "./play-side";
 
-export class PlayTableForCreation{
+export interface PlayTableForCreation{
     edgeSize: number;
     cpuSide: PlaySide;
     winningRowSize: number;
